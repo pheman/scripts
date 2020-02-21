@@ -20,7 +20,7 @@ docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn o
 echo "##########################start 1st expect#############"
 
 /usr/bin/expect <<-EOF
-set timeout 1000
+set timeout 100000
 spawn docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn ovpn_initpki
 expect {
 "*Confirm removal:" { send "yes\r"; exp_continue }
@@ -40,7 +40,7 @@ docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN ky
 echo "##########################start 2st expect#############"
 
 /usr/bin/expect <<-EOF
-set timeout 1000
+set timeout 100000
 spawn docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn easyrsa build-client-full CLIENTNAME nopass
 expect {
 "Enter pass phrase for /etc/openvpn/pki/private/ca.key:" { send "$passKey\r" }
